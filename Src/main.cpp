@@ -18,16 +18,15 @@
 #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
 #endif
 
-//Pin declaration
+// Pin declaration
 pin_struct_TypeDef usart_tx_pa9;
 pin_struct_TypeDef usart_rx_pa10;
-
 
 // Functions
 void clock_init()
 {
   // Enable AHB1 clock for GPIOA
-  SET_BIT(RCC->AHB1ENR, RCC_AHB1ENR_GPIOAEN);  
+  SET_BIT(RCC->AHB1ENR, RCC_AHB1ENR_GPIOAEN);
 
   // Enable APB2 clock for USART1
   SET_BIT(RCC->APB2ENR, RCC_APB2ENR_USART1EN);
@@ -35,7 +34,12 @@ void clock_init()
 void pin_init()
 {
   usart_tx_pa9 = pin_setup(GPIOA, PIN9, ALTERNATE);
+  // Set AF
+  SET_BIT(usart_tx_pa9.GPIOx->AFR[1], GPIO_AFRH_AFSEL9_0 | GPIO_AFRH_AFSEL9_1 | GPIO_AFRH_AFSEL9_2); // AF7 = 0b0111
+
   usart_rx_pa10 = pin_setup(GPIOA, PIN10, ALTERNATE);
+  // Set AF
+  SET_BIT(usart_rx_pa10.GPIOx->AFR[1], GPIO_AFRH_AFSEL10_0 | GPIO_AFRH_AFSEL10_1 | GPIO_AFRH_AFSEL10_2); // AF7 = 0b0111
 }
 
 int main(void)
