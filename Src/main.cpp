@@ -47,11 +47,11 @@ void pin_init()
 
 int main(void)
 {
-  /* Loop forever */
   clock_init();
   pin_init();
   uart1_init();
 
+  /* Loop forever */
   while (true)
   {
     uart1_write('h');
