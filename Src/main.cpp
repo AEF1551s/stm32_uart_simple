@@ -9,6 +9,7 @@
 #include <timer.h>
 #include <ultrasonic_sensor.h>
 #include <stdint.h>
+#include <uart.h>
 
 // DEBUG
 #include <debug_functons.h>
@@ -33,6 +34,7 @@ void clock_init()
 }
 void pin_init()
 {
+  /******USART PINS******/
   usart_tx_pa9 = pin_setup(GPIOA, PIN9, ALTERNATE);
   // Set AF
   SET_BIT(usart_tx_pa9.GPIOx->AFR[1], GPIO_AFRH_AFSEL9_0 | GPIO_AFRH_AFSEL9_1 | GPIO_AFRH_AFSEL9_2); // AF7 = 0b0111
@@ -40,13 +42,20 @@ void pin_init()
   usart_rx_pa10 = pin_setup(GPIOA, PIN10, ALTERNATE);
   // Set AF
   SET_BIT(usart_rx_pa10.GPIOx->AFR[1], GPIO_AFRH_AFSEL10_0 | GPIO_AFRH_AFSEL10_1 | GPIO_AFRH_AFSEL10_2); // AF7 = 0b0111
+  /*********************/
 }
 
 int main(void)
 {
   /* Loop forever */
+  clock_init();
+  pin_init();
+  uart1_init();
 
   while (true)
   {
+    uart1_write('h');
+    const char data = uart1_read();
+    printf("%c", data);
   }
 }
