@@ -1,7 +1,7 @@
-# STM32_ultrasonic_buzzer
+# STM32_uart_simple
 
 This is simple excercise for STM32F410RBT6 microcontroller which is part of NUCLEO-F410RB development board.  
-The goal is to write a program that uses UART to send and receive data. 
+The goal is to learn basic principles of UART
 
 This project includes minimal headers for STM32F4xx.  
 This project **does not** include any HAL header files.  
